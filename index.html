@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Rich Text Editor</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="rich-script.js"></script>
+    <link rel="stylesheet" href="rich-style.css">
+</head>
+<body class="bg-gray-100 min-h-screen p-4">
+    <div class="max-w-4xl mx-auto">
+        <div class="editor-container bg-white rounded-lg overflow-hidden">
+            <!-- Toolbar -->
+            <div class="toolbar border-b p-2 flex flex-wrap gap-2 bg-gray-50">
+                <!-- Text Style Controls -->
+                <div class="flex gap-1 border-r pr-2">
+                    <button onclick="execCmd('bold')" class="p-2 rounded hover:bg-gray-200" title="Bold">
+                        <i class="fas fa-bold"></i>
+                    </button>
+                    <button onclick="execCmd('italic')" class="p-2 rounded hover:bg-gray-200" title="Italic">
+                        <i class="fas fa-italic"></i>
+                    </button>
+                    <button onclick="execCmd('underline')" class="p-2 rounded hover:bg-gray-200" title="Underline">
+                        <i class="fas fa-underline"></i>
+                    </button>
+                </div>
+                
+                <!-- List Controls -->
+                <div class="flex gap-1 border-r pr-2">
+                    <button onclick="execCmd('insertUnorderedList')" class="p-2 rounded hover:bg-gray-200" title="Bullet List">
+                        <i class="fas fa-list-ul"></i>
+                    </button>
+                    <button onclick="execCmd('insertOrderedList')" class="p-2 rounded hover:bg-gray-200" title="Numbered List">
+                        <i class="fas fa-list-ol"></i>
+                    </button>
+                    <button onclick="execCmd('indent')" class="p-2 rounded hover:bg-gray-200" title="Increase Indent">
+                        <i class="fas fa-indent"></i>
+                    </button>
+                    <button onclick="execCmd('outdent')" class="p-2 rounded hover:bg-gray-200" title="Decrease Indent">
+                        <i class="fas fa-outdent"></i>
+                    </button>
+                </div>
+                
+                <!-- Alignment Controls -->
+                <div class="flex gap-1 border-r pr-2">
+                    <button onclick="execCmd('justifyLeft')" class="p-2 rounded hover:bg-gray-200" title="Align Left">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button onclick="execCmd('justifyCenter')" class="p-2 rounded hover:bg-gray-200" title="Align Center">
+                        <i class="fas fa-align-center"></i>
+                    </button>
+                    <button onclick="execCmd('justifyRight')" class="p-2 rounded hover:bg-gray-200" title="Align Right">
+                        <i class="fas fa-align-right"></i>
+                    </button>
+                </div>
+
+                <!-- Horizontal Line Button - New Addition -->
+                <div class="flex gap-1 border-r pr-2">
+                    <button onclick="execCmd('insertHorizontalRule')" class="p-2 rounded hover:bg-gray-200" title="Insert Horizontal Line">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+                
+                <!-- Font Controls -->
+                <div class="flex gap-2">
+                    <select onchange="execCommandWithArg('fontName', this.value)" class="border rounded p-1">
+                        <option value="Roboto">Roboto</option>
+                        <option value="Playfair Display">Playfair</option>
+                        <option value="Open Sans">Open Sans</option>
+                        <option value="Lora">Lora</option>
+                    </select>
+                    
+                    <select onchange="execCommandWithArg('fontSize', this.value)" class="border rounded p-1">
+                        <option value="1">Small</option>
+                        <option value="3" selected>Normal</option>
+                        <option value="5">Large</option>
+                        <option value="7">Huge</option>
+                    </select>
+                </div>
+                
+                <!-- Image Controls -->
+                <div class="flex gap-1 border-l pl-2">
+                    <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="insertImage(this)">
+                    <button onclick="document.getElementById('imageInput').click()" class="p-2 rounded hover:bg-gray-200" title="Insert Image">
+                        <i class="fas fa-image"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Editor Area -->
+            <div id="editor" class="p-4" contenteditable="true"></div>
+        </div>
+    </div>
+</body>
+</html>
